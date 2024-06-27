@@ -66,6 +66,11 @@ dependencies {
     implementation(libs.google.hilt.core)
     kapt(libs.google.hilt.compiler)
 
+    implementation(libs.androidx.room.core)
+    implementation(libs.androidx.room.ktx)
+    annotationProcessor(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
