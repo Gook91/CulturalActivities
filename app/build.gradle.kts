@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 android {
@@ -61,7 +62,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.hilt)
 
     implementation(libs.google.hilt.core)
     kapt(libs.google.hilt.compiler)
@@ -70,6 +73,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     annotationProcessor(libs.androidx.room.compiler)
     kapt(libs.androidx.room.compiler)
+
+    implementation(libs.jetbrains.kotlinx.serialization)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

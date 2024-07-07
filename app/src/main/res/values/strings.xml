@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Cultural Activities</string>
+
+    <!--    Cultural activities list-->
+    <string name="no_date_day">\?\?</string>
+    <string name="no_date_month"></string>
+    <string name="before_ending_date">до %1$s</string>
+
+    <string name="add_new_button">Добавить новое мероприятие</string>
+
+    <!--    Cultural activities info-->
+    <string name="name_title">Название</string>
+    <string name="description_title">Описание</string>
+    <string name="place_title">Место</string>
+    <string name="link_title">Ссылка</string>
+    <string name="ending_date_title">Дата окончания:</string>
+    <string name="date_of_visit_title">Дата посещения:</string>
+
+    <string name="select_date_button">Выбрать дату в календаре</string>
+    <string name="clear_date_button">Очистить дату</string>
+
+    <string name="save_button">Сохранить мероприятие</string>
+
 </resources>
