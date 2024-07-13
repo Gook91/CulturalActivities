@@ -24,8 +24,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.gbl.culturalactivities.R
 import com.gbl.culturalactivities.entity.CulturalActivity
+import com.gbl.culturalactivities.ui.SingleItemPreviewParameterProvider
 import java.util.Calendar
 
 @Composable
@@ -157,19 +159,13 @@ fun CalendarDialog(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewCulturalActivityEditView() {
+fun PreviewCulturalActivityEditView(
+    @PreviewParameter(SingleItemPreviewParameterProvider::class, limit = 1)
+    culturalActivity: CulturalActivity
+) {
     CulturalActivityEditView(
         culturalActivityUiState = CulturalActivityUiState(
-            object : CulturalActivity() {
-                override val id = 0
-                override val name = "ARS VIVENDI"
-                override val description = "Франс Снейдерс и фламандский натюрморт XVII века"
-                override val place = "Эрмитаж"
-                override val link =
-                    "https://hermitagemuseum.org/wps/portal/hermitage/what-s-on/temp_exh/2024/barocco/!ut/p/z1/pVJNU8IwFPwtHnrs5DX9SDnG4ljATkEppbkwaQ0ljm2hRMV_b-rAweFr1JySzO57-_YtYmiOWM3fZcmVbGr-qt8Z8xYxpZ5lBzCMByMCNLaSuwEZ4PGAoPQbAGcOBcR-8H3qA713x1GUPOB4ZO_5FwDscv8ZYoi91iXK2rfuui7kM8qElS891y_MghMwHQK26XPhmdjmPY6fc-LYpEMXtVqrFcpWoq2k4qUwoGhqJWplgNitZC47H7YGKFGtm5a3nwZgwI4BOW-bomiO9B8JZJftSTsZJypM3TCOZwEOnD3gQo1MayCLB7C8sOdYQ98N-0DxbBSEDrGgh1H6LsUHSuqmrfROn37pU3jocG7KCZzqkAbRYpLcPWru3_ZzZSzrn2MNr0VLZ1--bDaM6px0odgpNP97UHQ13EZBVGqRXK1MWS_1Z4dB8wNmXSVJ5duVOYcXt6wW_dtI5P7HdFml_pbe3HwBaNI6Gg!!/dz/d5/L2dBISEvZ0FBIS9nQSEh/?lng=ru"
-                override val endingDate = 1725753600000L
-                override val dateOfVisit = 1721088000000L
-            }
+            culturalActivity
         )
     )
 }
