@@ -1,11 +1,7 @@
 package com.gbl.culturalactivities.data.db
 
-import android.database.sqlite.SQLiteConstraintException
 import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
 import androidx.room.Upsert
 import com.gbl.culturalactivities.entity.CulturalActivity
 import kotlinx.coroutines.flow.Flow

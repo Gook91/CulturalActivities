@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.gbl.culturalactivities.entity.CulturalActivity
 
 @Database(
     entities = [CulturalActivityDto::class],
@@ -23,7 +22,7 @@ abstract class AppDatabase : RoomDatabase() {
             Room.databaseBuilder(
                 context,
                 AppDatabase::class.java,
-                AppDatabase.DB_NAME
+                DB_NAME
             ).build().also { instance = it }
         }
     }

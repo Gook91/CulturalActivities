@@ -1,8 +1,6 @@
 package com.gbl.culturalactivities.di
 
-import android.app.Application
 import android.content.Context
-import androidx.room.Room
 import com.gbl.culturalactivities.data.db.AppDatabase
 import com.gbl.culturalactivities.data.db.CulturalActivitiesDao
 import dagger.Module
