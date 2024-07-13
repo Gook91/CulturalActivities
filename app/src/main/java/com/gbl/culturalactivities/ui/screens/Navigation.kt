@@ -1,30 +1,18 @@
 package com.gbl.culturalactivities.ui.screens
 
-import android.util.Log
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.core.net.toUri
+import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
-import androidx.navigation.NavDeepLinkRequest
-import androidx.navigation.NavDestination.Companion.createRoute
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.ComposeNavigator
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import androidx.navigation.serialization.generateHashCode
-import androidx.navigation.serialization.generateRouteWithArgs
 import androidx.navigation.toRoute
 import com.gbl.culturalactivities.ui.screens.activitieslist.CulturalActivitiesListScreen
 import com.gbl.culturalactivities.ui.screens.activitieslist.CulturalActivitiesListViewModel
 import com.gbl.culturalactivities.ui.screens.activityinfo.CulturalActivityInfoScreen
 import com.gbl.culturalactivities.ui.screens.activityinfo.CulturalActivityInfoViewModel
-import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.serializer
 
 @Serializable
 object ListScreen
@@ -50,29 +38,44 @@ fun NavGraphBuilder.listScreenDestination(
     }
 }
 
-fun NavGraphBuilder.infoScreenDestination() {
+fun NavGraphBuilder.infoScreenDestination(
+    onNavigateToPreviousScreen: () -> Unit
+) {
     composable<InfoScreen> { backStackEntry ->
         val id: Int = backStackEntry.toRoute<InfoScreen>().id
-        val viewModel = getInfoViewModel(id)
-        CulturalActivityInfoScreen(
+        InfoScreen(
             id = id,
-            viewModel = viewModel
+            onNavigateToPreviousScreen = onNavigateToPreviousScreen
         )
     }
 }
 
-fun NavGraphBuilder.addNewScreenDestination() {
+// Serializable class in SafeArg navigation cannot have a nullable value, so this function was created
+fun NavGraphBuilder.addNewScreenDestination(
+    onNavigateToPreviousScreen: () -> Unit
+) {
     composable<AddNewScreen> {
-        val viewModel = getInfoViewModel()
-        CulturalActivityInfoScreen(viewModel = viewModel)
+        InfoScreen(onNavigateToPreviousScreen = onNavigateToPreviousScreen)
     }
 }
 
 @Composable
-private fun getInfoViewModel(id: Int? = null): CulturalActivityInfoViewModel =
-    hiltViewModel<CulturalActivityInfoViewModel, CulturalActivityInfoViewModel.Factory>(
-        creationCallback = { factory -> factory.create(id) }
+private fun InfoScreen(
+    id: Int? = null,
+    onNavigateToPreviousScreen: () -> Unit
+) {
+    val viewModel =
+        hiltViewModel<CulturalActivityInfoViewModel, CulturalActivityInfoViewModel.Factory>(
+            creationCallback = { factory -> factory.create(id) }
+        )
+    val culturalActivityUiState = viewModel.uiState.collectAsState()
+    CulturalActivityInfoScreen(
+        culturalActivityUiState = culturalActivityUiState.value,
+        saveFunction = { viewModel.saveCulturalActivity() },
+        deleteFunction = { viewModel.deleteCulturalActivity() },
+        onNavigateToPreviousScreen = onNavigateToPreviousScreen
     )
+}
 
 fun NavController.navigateToInfoScreenById(id: Int) {
     navigate(route = InfoScreen(id = id))

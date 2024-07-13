@@ -20,5 +20,7 @@
     <string name="clear_date_button">Очистить дату</string>
 
     <string name="save_button">Сохранить мероприятие</string>
+    <string name="delete_button">Удалить мероприятие</string>
+    <string name="back_navigation">Вернуться назад</string>
 
 </resources>

@@ -1,15 +1,9 @@
 package com.gbl.culturalactivities.ui
 
-import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.navigation.NamedNavArgument
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.gbl.culturalactivities.ui.screens.ListScreen
-import com.gbl.culturalactivities.ui.screens.activitieslist.CulturalActivitiesListScreen
 import com.gbl.culturalactivities.ui.screens.addNewScreenDestination
 import com.gbl.culturalactivities.ui.screens.infoScreenDestination
 import com.gbl.culturalactivities.ui.screens.listScreenDestination
@@ -28,7 +22,11 @@ fun NavScreen() {
             onNavigateToNewCulturalActivity = {
                 navController.navigateToAddNewScreen()
             })
-        infoScreenDestination()
-        addNewScreenDestination()
+        infoScreenDestination(
+            onNavigateToPreviousScreen = { navController.popBackStack() }
+        )
+        addNewScreenDestination(
+            onNavigateToPreviousScreen = { navController.popBackStack() }
+        )
     }
 }
