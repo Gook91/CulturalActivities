@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="borders">8dp</dimen>
+    <dimen name="view_padding">8dp</dimen>
+    <dimen name="screen_padding">16dp</dimen>
+    <dimen name="border_width">2dp</dimen>
+    <dimen name="border_corner">4dp</dimen>
 </resources>
