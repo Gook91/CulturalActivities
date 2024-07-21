@@ -100,6 +100,7 @@ class ListPreviewParameterProvider : PreviewParameterProvider<List<CulturalActiv
                 override val endingDate = null
                 override val dateOfVisit = null
             },
-        )
+        ),
+        emptyList()
     )
 }

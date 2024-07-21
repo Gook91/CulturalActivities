@@ -31,7 +31,7 @@ fun NavGraphBuilder.listScreenDestination(
         val viewModel: CulturalActivitiesListViewModel = hiltViewModel()
         val listState = viewModel.listFlow.collectAsStateWithLifecycle()
         CulturalActivitiesListScreen(
-            listState = listState,
+            dataList = listState.value,
             onNavigateToIdCulturalActivity = onNavigateToInfoScreen,
             onNavigateToNewCulturalActivity = onNavigateToNewCulturalActivity
         )

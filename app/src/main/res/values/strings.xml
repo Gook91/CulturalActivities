@@ -5,8 +5,7 @@
     <string name="before_ending_date">до %1$s</string>
 
     <!--    Cultural activities list-->
-    <string name="no_date_day">\?\?</string>
-    <string name="no_date_month"></string>
+    <string name="list_is_empty">События отсутствуют. Добавь первое!</string>
 
     <string name="add_new_button">Добавить новое мероприятие</string>
 

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,10 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.gbl.culturalactivities.R
 import java.util.Calendar
 import java.util.Locale
@@ -23,7 +22,8 @@ import java.util.Locale
 @Composable
 fun DateIcon(
     dateInMillis: Long?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    borderColor: Color = Color.Black // ToDO: add color from theme
 ) {
     val dayString: String
     val monthString: String?
@@ -44,16 +44,16 @@ fun DateIcon(
             .size(48.dp) // ToDo: Add size to dimensional resource or to constructor
             .border(
                 width = dimensionResource(id = R.dimen.border_width),
-                color = Color.Black,
+                color = borderColor,
                 shape = RoundedCornerShape(dimensionResource(id = R.dimen.border_corner))
             )
     ) {
         Text(
-            text = dayString,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            text = dayString, style = MaterialTheme.typography.titleLarge
         )
-        monthString?.let { Text(text = it) }
+        monthString?.let {
+            Text(text = it, style = MaterialTheme.typography.titleSmall)
+        }
     }
 }
 

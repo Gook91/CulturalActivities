@@ -16,7 +16,9 @@ interface CulturalActivitiesDao {
         upsert(culturalActivityDto)
     }
 
-    @Query("SELECT * FROM activities ORDER BY dateOfVisit")
+    @Query("SELECT * FROM activities ORDER BY " +
+            "dateOfVisit NOT NULL DESC, dateOfVisit, " +
+            "endingDate NOT NULL DESC, endingDate")
     fun getAllActivities(): Flow<List<CulturalActivityDto>>
 
     @Query("SELECT * FROM activities WHERE id=:id")
