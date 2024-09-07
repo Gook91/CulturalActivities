@@ -3,6 +3,7 @@
 
     <string name="no_date_icon">\?\?</string>
     <string name="before_ending_date">до %1$s</string>
+    <string name="back_navigation">Вернуться назад</string>
 
     <!--    Cultural activities list-->
     <string name="list_is_empty">События отсутствуют. Добавь первое!</string>
@@ -18,7 +19,9 @@
 
     <string name="save_button">Сохранить мероприятие</string>
     <string name="delete_button">Удалить мероприятие</string>
-    <string name="back_navigation">Вернуться назад</string>
+
+    <!--    Settings-->
+    <string name="settings">Настройки</string>
 
     <!--    Open calendar dialog button-->
     <string name="calendar_select_button">Выбрать</string>

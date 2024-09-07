@@ -12,6 +12,7 @@ import com.gbl.culturalactivities.ui.screens.activitieslist.CulturalActivitiesLi
 import com.gbl.culturalactivities.ui.screens.activitieslist.CulturalActivitiesListViewModel
 import com.gbl.culturalactivities.ui.screens.activityinfo.CulturalActivityInfoScreen
 import com.gbl.culturalactivities.ui.screens.activityinfo.CulturalActivityInfoViewModel
+import com.gbl.culturalactivities.ui.screens.settings.SettingsScreen
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -23,9 +24,13 @@ data class InfoScreen(val id: Int)
 @Serializable
 object AddNewScreen
 
+@Serializable
+object SettingsScreenRoute
+
 fun NavGraphBuilder.listScreenDestination(
     onNavigateToInfoScreen: (id: Int) -> Unit,
-    onNavigateToNewCulturalActivity: () -> Unit
+    onNavigateToNewCulturalActivity: () -> Unit,
+    onNavigateToSettingsScreen: () -> Unit,
 ) {
     composable<ListScreen> {
         val viewModel: CulturalActivitiesListViewModel = hiltViewModel()
@@ -33,7 +38,8 @@ fun NavGraphBuilder.listScreenDestination(
         CulturalActivitiesListScreen(
             dataList = listState.value,
             onNavigateToIdCulturalActivity = onNavigateToInfoScreen,
-            onNavigateToNewCulturalActivity = onNavigateToNewCulturalActivity
+            onNavigateToNewCulturalActivity = onNavigateToNewCulturalActivity,
+            onNavigateToSettingsScreen = onNavigateToSettingsScreen
         )
     }
 }
@@ -77,10 +83,22 @@ private fun InfoScreen(
     )
 }
 
+fun NavGraphBuilder.settingScreenDestination(
+    onNavigateToPreviousScreen: () -> Unit
+) {
+    composable<SettingsScreenRoute> {
+        SettingsScreen(onNavigateToPreviousScreen = onNavigateToPreviousScreen)
+    }
+}
+
 fun NavController.navigateToInfoScreenById(id: Int) {
     navigate(route = InfoScreen(id = id))
 }
 
 fun NavController.navigateToAddNewScreen() {
     navigate(route = AddNewScreen)
+}
+
+fun NavController.navigateToSettingsScreen() {
+    navigate(route = SettingsScreenRoute)
 }

@@ -9,6 +9,8 @@ import com.gbl.culturalactivities.ui.screens.infoScreenDestination
 import com.gbl.culturalactivities.ui.screens.listScreenDestination
 import com.gbl.culturalactivities.ui.screens.navigateToAddNewScreen
 import com.gbl.culturalactivities.ui.screens.navigateToInfoScreenById
+import com.gbl.culturalactivities.ui.screens.navigateToSettingsScreen
+import com.gbl.culturalactivities.ui.screens.settingScreenDestination
 
 @Composable
 fun NavScreen() {
@@ -21,11 +23,17 @@ fun NavScreen() {
             },
             onNavigateToNewCulturalActivity = {
                 navController.navigateToAddNewScreen()
+            },
+            onNavigateToSettingsScreen = {
+                navController.navigateToSettingsScreen()
             })
         infoScreenDestination(
             onNavigateToPreviousScreen = { navController.popBackStack() }
         )
         addNewScreenDestination(
+            onNavigateToPreviousScreen = { navController.popBackStack() }
+        )
+        settingScreenDestination(
             onNavigateToPreviousScreen = { navController.popBackStack() }
         )
     }
