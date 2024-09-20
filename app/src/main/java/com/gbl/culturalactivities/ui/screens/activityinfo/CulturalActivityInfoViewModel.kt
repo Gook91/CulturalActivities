@@ -2,7 +2,7 @@ package com.gbl.culturalactivities.ui.screens.activityinfo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gbl.culturalactivities.data.Repository
+import com.gbl.culturalactivities.domain.repository.CulturalActivityRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel(assistedFactory = CulturalActivityInfoViewModel.Factory::class)
 class CulturalActivityInfoViewModel @AssistedInject constructor(
     @Assisted private val culturalActivityId: Int? = null,
-    private val repository: Repository
+    private val culturalActivityRepository: CulturalActivityRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(CulturalActivityUiState())
     val uiState: StateFlow<CulturalActivityUiState> get() = _uiState
@@ -22,7 +22,8 @@ class CulturalActivityInfoViewModel @AssistedInject constructor(
     init {
         culturalActivityId?.let {
             viewModelScope.launch {
-                val culturalActivity = repository.getCulturalActivity(culturalActivityId)
+                val culturalActivity =
+                    culturalActivityRepository.getCulturalActivity(culturalActivityId)
                 _uiState.value = CulturalActivityUiState(culturalActivity)
             }
         }
@@ -30,13 +31,13 @@ class CulturalActivityInfoViewModel @AssistedInject constructor(
 
     fun saveCulturalActivity() {
         viewModelScope.launch {
-            repository.putCulturalActivity(uiState.value.culturalActivity)
+            culturalActivityRepository.putCulturalActivity(uiState.value.culturalActivity)
         }
     }
 
     fun deleteCulturalActivity() {
         viewModelScope.launch {
-            culturalActivityId?.let { repository.deleteCulturalActivity(it) }
+            culturalActivityId?.let { culturalActivityRepository.deleteCulturalActivity(it) }
         }
     }
 
