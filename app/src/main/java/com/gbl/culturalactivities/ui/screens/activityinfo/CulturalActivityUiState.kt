@@ -3,7 +3,7 @@ package com.gbl.culturalactivities.ui.screens.activityinfo
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.gbl.culturalactivities.entity.CulturalActivity
+import com.gbl.culturalactivities.domain.entity.CulturalActivity
 
 class CulturalActivityUiState(
     culturalActivity: CulturalActivity? = null

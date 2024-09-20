@@ -1,7 +1,7 @@
 package com.gbl.culturalactivities.ui
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.gbl.culturalactivities.entity.CulturalActivity
+import com.gbl.culturalactivities.domain.entity.CulturalActivity
 
 class SingleItemPreviewParameterProvider : PreviewParameterProvider<CulturalActivity> {
     override val values: Sequence<CulturalActivity> = sequenceOf(

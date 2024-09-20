@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.gbl.culturalactivities.R
-import com.gbl.culturalactivities.entity.CulturalActivity
+import com.gbl.culturalactivities.domain.entity.CulturalActivity
 import com.gbl.culturalactivities.ui.SingleItemPreviewParameterProvider
 import com.gbl.culturalactivities.ui.views.DateIcon
 import java.util.Calendar

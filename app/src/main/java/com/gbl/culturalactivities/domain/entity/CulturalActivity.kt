@@ -1,4 +1,4 @@
-package com.gbl.culturalactivities.entity
+package com.gbl.culturalactivities.domain.entity
 
 abstract class CulturalActivity {
     abstract val id: Int?

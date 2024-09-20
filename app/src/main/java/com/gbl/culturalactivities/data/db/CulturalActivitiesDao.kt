@@ -3,7 +3,7 @@ package com.gbl.culturalactivities.data.db
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import com.gbl.culturalactivities.entity.CulturalActivity
+import com.gbl.culturalactivities.domain.entity.CulturalActivity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -2,7 +2,7 @@ package com.gbl.culturalactivities.data
 
 import com.gbl.culturalactivities.data.db.CulturalActivitiesDao
 import com.gbl.culturalactivities.domain.repository.CulturalActivityRepository
-import com.gbl.culturalactivities.entity.CulturalActivity
+import com.gbl.culturalactivities.domain.entity.CulturalActivity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton

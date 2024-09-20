@@ -2,7 +2,7 @@ package com.gbl.culturalactivities.data.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.gbl.culturalactivities.entity.CulturalActivity
+import com.gbl.culturalactivities.domain.entity.CulturalActivity
 
 @Entity(tableName = "activities")
 data class CulturalActivityDto(

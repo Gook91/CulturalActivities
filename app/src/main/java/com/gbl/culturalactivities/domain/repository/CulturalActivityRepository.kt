@@ -1,6 +1,6 @@
 package com.gbl.culturalactivities.domain.repository
 
-import com.gbl.culturalactivities.entity.CulturalActivity
+import com.gbl.culturalactivities.domain.entity.CulturalActivity
 import kotlinx.coroutines.flow.Flow
 
 interface CulturalActivityRepository {
