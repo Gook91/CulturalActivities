@@ -1,6 +1,6 @@
 package com.gbl.culturalactivities.data
 
-import com.gbl.culturalactivities.data.db.CulturalActivitiesDao
+import com.gbl.culturalactivities.data.db.CulturalActivityDao
 import com.gbl.culturalactivities.domain.repository.CulturalActivityRepository
 import com.gbl.culturalactivities.domain.entity.CulturalActivity
 import kotlinx.coroutines.flow.Flow
@@ -9,19 +9,19 @@ import javax.inject.Singleton
 
 @Singleton
 class CulturalActivityRepositoryImpl @Inject constructor(
-    private val culturalActivitiesDao: CulturalActivitiesDao
+    private val culturalActivityDao: CulturalActivityDao
 ): CulturalActivityRepository {
 
     override fun getCulturalActivitiesList(): Flow<List<CulturalActivity>> =
-        culturalActivitiesDao.getAllActivities()
+        culturalActivityDao.getAllActivities()
 
     override suspend fun putCulturalActivity(culturalActivity: CulturalActivity) =
-        culturalActivitiesDao.upsert(culturalActivity)
+        culturalActivityDao.upsert(culturalActivity)
 
     override suspend fun getCulturalActivity(id: Int): CulturalActivity =
-        culturalActivitiesDao.getActivityById(id)
+        culturalActivityDao.getActivityById(id)
 
     override suspend fun deleteCulturalActivity(id: Int) =
-        culturalActivitiesDao.delete(id)
+        culturalActivityDao.delete(id)
 
 }

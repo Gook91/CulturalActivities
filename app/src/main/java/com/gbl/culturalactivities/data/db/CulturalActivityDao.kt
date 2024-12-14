@@ -7,7 +7,7 @@ import com.gbl.culturalactivities.domain.entity.CulturalActivity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface CulturalActivitiesDao {
+interface CulturalActivityDao {
     @Upsert
     suspend fun upsert(culturalActivityDto: CulturalActivityDto)
 

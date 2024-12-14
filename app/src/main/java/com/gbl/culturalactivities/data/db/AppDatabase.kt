@@ -11,7 +11,7 @@ import androidx.room.RoomDatabase
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun culturalActivitiesDao(): CulturalActivitiesDao
+    abstract fun culturalActivityDao(): CulturalActivityDao
 
     companion object {
         private const val DB_NAME = "cultural_base"
