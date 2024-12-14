@@ -1,6 +1,7 @@
 package com.gbl.culturalactivities.ui.screens.activityinfo
 
 import android.icu.text.DateFormat
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,20 +9,28 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.window.PopupProperties
 import com.gbl.culturalactivities.R
 import com.gbl.culturalactivities.domain.entity.CulturalActivity
 import com.gbl.culturalactivities.ui.SingleItemPreviewParameterProvider
@@ -128,19 +137,43 @@ private fun LinkField(
 
 @Composable
 fun PlaceField(culturalActivityUiState: CulturalActivityUiState, modifier: Modifier) {
-    OutlinedTextField(
-        value = culturalActivityUiState.placeState,
-        onValueChange = { culturalActivityUiState.placeState = it },
-        modifier = modifier,
-        label = { Text(text = stringResource(id = R.string.place_title)) },
-        leadingIcon = {
-            Icon(
-                painterResource(id = R.drawable.place_icon),
-                contentDescription = ""
-            )
-        },
-        singleLine = true
-    )
+    Box {
+        var expandedSuggestions by remember { mutableStateOf(false) }
+        val placeSuggestions = culturalActivityUiState.placeSuggestions
+        val isExpandedSuggestions = expandedSuggestions && placeSuggestions.isNotEmpty()
+
+        OutlinedTextField(
+            value = culturalActivityUiState.placeState,
+            onValueChange = {
+                culturalActivityUiState.placeState = it
+                expandedSuggestions = true
+            },
+            modifier = modifier.onFocusChanged { focusState ->
+                expandedSuggestions = focusState.isFocused
+            },
+            label = { Text(text = stringResource(id = R.string.place_title)) },
+            leadingIcon = {
+                Icon(
+                    painterResource(id = R.drawable.place_icon),
+                    contentDescription = ""
+                )
+            },
+            singleLine = true
+        )
+        DropdownMenu(
+            expanded = isExpandedSuggestions,
+            properties = PopupProperties(focusable = false),
+            onDismissRequest = { expandedSuggestions = false }) {
+            placeSuggestions.forEach { place ->
+                DropdownMenuItem(
+                    text = { Text(place) },
+                    onClick = {
+                        culturalActivityUiState.placeState = place
+                        expandedSuggestions = false
+                    })
+            }
+        }
+    }
 }
 
 @Composable

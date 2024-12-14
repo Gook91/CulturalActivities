@@ -6,7 +6,8 @@ import androidx.compose.runtime.setValue
 import com.gbl.culturalactivities.domain.entity.CulturalActivity
 
 class CulturalActivityUiState(
-    culturalActivity: CulturalActivity? = null
+    culturalActivity: CulturalActivity? = null,
+    private val places: List<String> = emptyList(),
 ) {
     private val culturalActivityId: Int? = culturalActivity?.id
     var nameState: String by mutableStateOf(culturalActivity?.name ?: "")
@@ -15,6 +16,8 @@ class CulturalActivityUiState(
     var linkState: String by mutableStateOf(culturalActivity?.link ?: "")
     var endingDateState: Long? by mutableStateOf(culturalActivity?.endingDate)
     var dateOfVisitState: Long? by mutableStateOf(culturalActivity?.dateOfVisit)
+
+    val placeSuggestions get() = places.filter { it.contains(placeState.trim(), true) }
 
     val culturalActivity: CulturalActivity
         get() = object : CulturalActivity() {
