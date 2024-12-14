@@ -3,6 +3,7 @@ package com.gbl.culturalactivities.di
 import android.content.Context
 import com.gbl.culturalactivities.data.db.AppDatabase
 import com.gbl.culturalactivities.data.db.CulturalActivityDao
+import com.gbl.culturalactivities.data.db.PlaceDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,4 +22,8 @@ object DatabaseModule {
     @Provides
     fun provideCulturalActivityDao(appDatabase: AppDatabase): CulturalActivityDao =
         appDatabase.culturalActivityDao()
+
+    @Provides
+    fun providePlaceDao(appDatabase: AppDatabase): PlaceDao =
+        appDatabase.placeDao()
 }

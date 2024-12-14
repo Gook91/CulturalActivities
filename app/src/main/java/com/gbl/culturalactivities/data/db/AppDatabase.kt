@@ -12,6 +12,7 @@ import androidx.room.RoomDatabase
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun culturalActivityDao(): CulturalActivityDao
+    abstract fun placeDao(): PlaceDao
 
     companion object {
         private const val DB_NAME = "cultural_base"
