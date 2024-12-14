@@ -21,7 +21,7 @@ class CulturalActivityUiState(
             override val id: Int? = culturalActivityId
             override val name: String = nameState
             override val description: String = descriptionState
-            override val place: String = placeState
+            override val place: String = placeState.trim()
             override val link: String = linkState
             override val endingDate: Long? = endingDateState
             override val dateOfVisit: Long? = dateOfVisitState
