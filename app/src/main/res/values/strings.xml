@@ -19,6 +19,11 @@
 
     <string name="save_button">Сохранить мероприятие</string>
     <string name="delete_button">Удалить мероприятие</string>
+    <string name="delete_activity_confirmation">Вы действительно хотите удалить мероприятие?</string>
+
+    <!--    Confirm dialog-->
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 
     <!--    Settings-->
     <string name="settings">Настройки</string>

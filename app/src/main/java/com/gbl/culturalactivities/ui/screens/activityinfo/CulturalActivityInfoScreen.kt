@@ -12,6 +12,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -21,6 +23,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.gbl.culturalactivities.R
 import com.gbl.culturalactivities.domain.entity.CulturalActivity
 import com.gbl.culturalactivities.ui.SingleItemPreviewParameterProvider
+import com.gbl.culturalactivities.ui.views.ConfirmDialog
 
 @Composable
 fun CulturalActivityInfoScreen(
@@ -85,7 +88,14 @@ private fun TopBar(
         },
         title = {},
         actions = {
-            IconButton(onClick = deleteCulturalActivity) {
+            val confirmDeleteDialogState = remember { mutableStateOf(false) }
+            if (confirmDeleteDialogState.value)
+                ConfirmDialog(
+                    stringResource(R.string.delete_activity_confirmation),
+                    deleteCulturalActivity,
+                    confirmDeleteDialogState
+                )
+            IconButton(onClick = { confirmDeleteDialogState.value = true }) {
                 Icon(
                     painter = painterResource(id = R.drawable.delete_icon),
                     contentDescription = stringResource(id = R.string.delete_button)
