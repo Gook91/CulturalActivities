@@ -1,5 +1,6 @@
 package com.gbl.culturalactivities.ui.screens.activityinfo
 
+import android.content.Intent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -23,6 +25,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.gbl.culturalactivities.R
 import com.gbl.culturalactivities.domain.entity.CulturalActivity
 import com.gbl.culturalactivities.ui.SingleItemPreviewParameterProvider
+import com.gbl.culturalactivities.ui.tools.dateToStringWithLongFormat
 import com.gbl.culturalactivities.ui.views.ConfirmDialog
 
 @Composable
@@ -35,8 +38,23 @@ fun CulturalActivityInfoScreen(
     Scaffold(
         modifier = Modifier.imePadding(),
         topBar = {
+            val context = LocalContext.current
             TopBar(
                 onNavigateToPreviousScreen = onNavigateToPreviousScreen,
+                getShareString = {
+                    with(culturalActivityUiState) {
+                        buildList {
+                            if (placeState.isNotEmpty()) add(placeState)
+                            if (nameState.isNotEmpty()) add(nameState)
+                            if (linkState.isNotEmpty()) add(linkState)
+                            endingDateState?.dateToStringWithLongFormat().let {
+                                val shareText =
+                                    context.getString(R.string.before_ending_date, it)
+                                add(shareText)
+                            }
+                        }.joinToString(context.getString(R.string.share_separator))
+                    }
+                },
                 deleteCulturalActivity = {
                     deleteFunction()
                     onNavigateToPreviousScreen()
@@ -75,6 +93,7 @@ private fun FloatingButtonSave(saveCulturalActivity: () -> Unit) {
 @Composable
 private fun TopBar(
     onNavigateToPreviousScreen: () -> Unit,
+    getShareString: () -> String,
     deleteCulturalActivity: () -> Unit
 ) {
     TopAppBar(
@@ -88,6 +107,22 @@ private fun TopBar(
         },
         title = {},
         actions = {
+            val context = LocalContext.current
+            IconButton(onClick = {
+                val sendIntent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, getShareString())
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                context.startActivity(shareIntent)
+            }) {
+                Icon(
+                    painter = painterResource(R.drawable.share_icon),
+                    contentDescription = stringResource(R.string.share_button)
+                )
+            }
+
             val confirmDeleteDialogState = remember { mutableStateOf(false) }
             if (confirmDeleteDialogState.value)
                 ConfirmDialog(

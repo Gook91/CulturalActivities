@@ -18,6 +18,8 @@
     <string name="ending_date_title">Дата окончания</string>
 
     <string name="save_button">Сохранить мероприятие</string>
+    <string name="share_button">Поделиться мерроприятием</string>
+    <string name="share_separator">\ -\ </string>
     <string name="delete_button">Удалить мероприятие</string>
     <string name="delete_activity_confirmation">Вы действительно хотите удалить мероприятие?</string>
 
