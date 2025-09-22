@@ -1,6 +1,5 @@
 package com.gbl.culturalactivities.ui.screens.activityinfo
 
-import android.icu.text.DateFormat
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,10 +33,9 @@ import androidx.compose.ui.window.PopupProperties
 import com.gbl.culturalactivities.R
 import com.gbl.culturalactivities.domain.entity.CulturalActivity
 import com.gbl.culturalactivities.ui.SingleItemPreviewParameterProvider
+import com.gbl.culturalactivities.ui.tools.dateToStringWithLongFormat
 import com.gbl.culturalactivities.ui.views.DateIcon
 import com.gbl.culturalactivities.ui.views.OpenCalendarDialogButton
-import java.util.Calendar
-import java.util.Locale
 
 @Composable
 fun CulturalActivityEditView(
@@ -186,12 +184,8 @@ private fun EndingDate(
         changeDate = { culturalActivityUiState.endingDateState = it },
         modifier = modifier
     ) {
-        val dateInText: String? = culturalActivityUiState.endingDateState?.let { dateInMillis ->
-            val calendar = Calendar.getInstance().apply { timeInMillis = dateInMillis }
-            val dateFormatter = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault())
-            dateFormatter.format(calendar.time)
-        }
-
+        val dateInText: String? =
+            culturalActivityUiState.endingDateState?.dateToStringWithLongFormat()
         OutlinedTextField(
             value = dateInText?.let {
                 stringResource(id = R.string.before_ending_date, it)
