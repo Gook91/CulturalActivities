@@ -2,8 +2,10 @@ package com.gbl.culturalactivities.ui.screens.activityinfo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gbl.culturalactivities.domain.repository.CulturalActivityRepository
-import com.gbl.culturalactivities.domain.repository.PlaceRepository
+import com.gbl.culturalactivities.domain.usecase.culturalactivity.DeleteCulturalActivityUseCase
+import com.gbl.culturalactivities.domain.usecase.culturalactivity.GetCulturalActivityUseCase
+import com.gbl.culturalactivities.domain.usecase.culturalactivity.PutCulturalActivityUseCase
+import com.gbl.culturalactivities.domain.usecase.place.GetPlacesUseCase
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -16,8 +18,10 @@ import kotlinx.coroutines.launch
 @HiltViewModel(assistedFactory = CulturalActivityInfoViewModel.Factory::class)
 class CulturalActivityInfoViewModel @AssistedInject constructor(
     @Assisted private val culturalActivityId: Int? = null,
-    private val culturalActivityRepository: CulturalActivityRepository,
-    private val placeRepository: PlaceRepository,
+    getCulturalActivityUseCase: GetCulturalActivityUseCase,
+    private val putCulturalActivityUseCase: PutCulturalActivityUseCase,
+    private val deleteCulturalActivityUseCase: DeleteCulturalActivityUseCase,
+    private val getPlacesUseCase: GetPlacesUseCase,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(CulturalActivityUiState())
     val uiState: StateFlow<CulturalActivityUiState> get() = _uiState
@@ -25,10 +29,10 @@ class CulturalActivityInfoViewModel @AssistedInject constructor(
     init {
         viewModelScope.launch {
             val culturalActivityDeferred = async {
-                culturalActivityId?.let { culturalActivityRepository.getCulturalActivity(it) }
+                culturalActivityId?.let { getCulturalActivityUseCase(it) }
             }
             val placesDeferred = async {
-                placeRepository.getAllPlaces()
+                getPlacesUseCase()
             }
             val culturalActivity = culturalActivityDeferred.await()
             val places = placesDeferred.await()
@@ -38,13 +42,13 @@ class CulturalActivityInfoViewModel @AssistedInject constructor(
 
     fun saveCulturalActivity() {
         viewModelScope.launch {
-            culturalActivityRepository.putCulturalActivity(uiState.value.culturalActivity)
+            putCulturalActivityUseCase(uiState.value.culturalActivity)
         }
     }
 
     fun deleteCulturalActivity() {
         viewModelScope.launch {
-            culturalActivityId?.let { culturalActivityRepository.deleteCulturalActivity(it) }
+            culturalActivityId?.let { deleteCulturalActivityUseCase(it) }
         }
     }
 
